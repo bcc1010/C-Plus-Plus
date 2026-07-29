@@ -1,0 +1,24 @@
+#include <string>
+#include <unordered_map>
+#include <iostream>
+using std::string;
+using std::unordered_map;
+
+string first_non_repeat(const string& str) {
+    unordered_map<char, int> freq;
+    string res = "none";
+    for (char c : str) freq[c]++;
+    for (char c : str) {
+        if (freq.at(c) == 1) {
+            res = c;
+            return res;
+        }
+    }
+    return res;
+}
+
+int main() {
+    std::cout << first_non_repeat("leetcode") << "\n";
+    std::cout << first_non_repeat("aabb") << "\n";
+    std::cout << first_non_repeat("aabbcd") << "\n";
+}
