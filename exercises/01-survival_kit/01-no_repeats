@@ -1,0 +1,26 @@
+#include <vector>
+#include <unordered_map>
+#include <unordered_set>
+#include <iostream>
+using std::vector;
+using std::unordered_map;
+
+vector<int> only_repeats(const vector<int>& nums) {
+    unordered_map<int, int> freq;
+    vector<int> res;
+    for (int num : nums) freq[num]++;
+    for (int num : nums) {
+        if (freq.at(num) > 1) {
+            res.push_back(num);
+            freq[num] = 0;
+        }
+    }
+    return res;
+}
+
+int main() {
+    vector<int> input1 = {4, 3, 2, 7, 8, 3, 2, 4, 1};
+    for (int num : only_repeats(input1)) {
+        std::cout << num << " ";
+    }
+}
