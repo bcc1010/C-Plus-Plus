@@ -1,0 +1,38 @@
+// Tier 3 - Hard Application
+#include <iostream>
+#include <unordered_map>
+#include <string>
+#include <vector>
+using std::unordered_map;
+using std::string;
+using std::vector;
+
+vector<string> find_pattern_matches(const vector<string>& words, const string& pattern) {
+    unordered_map<char, int> pattern_char_freq;
+    unordered_map<int, int> ptn_int_occurrences;
+    vector<string> res;
+    for (const auto& c : pattern) pattern_char_freq[c]++;
+    for (const auto& [_, val] : pattern_char_freq) ptn_int_occurrences[val]++;
+    for (string word : words) {
+        bool unbroken = true;
+        unordered_map<int, int> ptn_int_occurrences_copy = ptn_int_occurrences;
+        unordered_map<char, int> word_char_freq;
+        for (const auto& c : word) word_char_freq[c]++;
+        for (const auto& [_, val] : word_char_freq) {
+            if (ptn_int_occurrences_copy.count(val) > 0) {
+                ptn_int_occurrences_copy[val]--;
+            } else {
+                unbroken = false;
+                break;
+            }
+        }
+        if (unbroken) res.push_back(word);
+    }
+    return res;
+}
+
+int main() {
+    for (string str : find_pattern_matches({"aa", "bb", "cc", "ab", "ba"}, "ab")) {
+        std::cout << str << " ";
+    }
+}
