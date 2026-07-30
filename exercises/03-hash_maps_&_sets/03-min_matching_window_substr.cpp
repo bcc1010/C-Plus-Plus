@@ -22,12 +22,12 @@ string findMinMatchingWindowSubstr(const string& s, const string& t) {
             have++;
         }
         while (have == required) {
-            char lc = s[left];
-            window[lc]--;
             if (right - left + 1 < bestLen) {
                 bestLen = right - left + 1;
                 bestStart = left;
             }
+            char lc = s[left];
+            window[lc]--;
             if (need.count(lc) && window[lc] < need[lc]) {
                 have--;
             }
