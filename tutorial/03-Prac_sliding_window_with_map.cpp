@@ -11,39 +11,32 @@ string minWindow(const string& s, const string& t) {
     for (char c : t) need[c]++;
 
     int have = 0;
-    int required = (int)need.size();
-    int left = 0;
+    int required = (int)t.size();
     int bestStart = 0;
     int bestLen = INT_MAX;
-
-    unordered_map<char, int> window;
-
+    int left = 0;
+    
     for (int right = 0; right < (int)s.size(); right++) {
+        // Check if increment have
         char c = s[right];
         window[c]++;
-
-        // Check if this character's requirement is now satisfied
         if (need.count(c) && window[c] == need[c]) {
             have++;
         }
 
-        // Shrink from left while window is valid
         while (have == required) {
-            // Update best
             if (right - left + 1 < bestLen) {
                 bestLen = right - left + 1;
                 bestStart = left;
             }
 
-            // Remove left character from window
             char lc = s[left];
             window[lc]--;
             if (need.count(lc) && window[lc] < need[lc]) {
-                have--;     // This requirement is now satisfied
+                have--;
             }
             left++;
         }
     }
-
     return bestLen == INT_MAX ? "" : s.substr(bestStart, bestLen);
 }
