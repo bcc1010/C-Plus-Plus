@@ -10,5 +10,5 @@ bool isSubsequence(const std::string& s, const std::string& t) {
         j++;
     }
 
-    return i = s.size();
+    return i = (int)s.size();
 }
