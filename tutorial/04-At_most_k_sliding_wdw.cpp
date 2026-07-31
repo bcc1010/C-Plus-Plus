@@ -12,7 +12,7 @@ int atMostK(const vector<int>& nums, int k) {
     unordered_map<int, int> window;
     int left = 0, count = 0;
 
-    for (int right = 0; right < nums.size(); right++) {
+    for (int right = 0; right < (int)nums.size(); right++) {
         window[nums[right]]++;
 
         // Shrink while we have more than k distinct elements
@@ -24,7 +24,7 @@ int atMostK(const vector<int>& nums, int k) {
         }
 
         // All subarrays ending at right and starting at left..right are valid
-        count += right - left;
+        count += right - left + 1;
     }
     return count;
 }
